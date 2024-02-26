@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">wsroom</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="curse">Workshop Compose</string>
+    <string name="click_me">Click me</string>
+    <string name="click_me_too">Click mee too</string>
+</resources>
