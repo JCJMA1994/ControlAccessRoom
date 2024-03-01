@@ -6,3 +6,9 @@ data class UIControlAccess(
     var messageError: String = "",
     var messageSuccess: String = "",
 )
+
+
+data class AccessControl(
+    var username: String = "",
+    var password: String = ""
+)

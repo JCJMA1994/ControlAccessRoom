@@ -25,6 +25,7 @@ fun MyNavigation(navController: NavHostController = rememberNavController()) {
     NavHost(navController = navController, startDestination = "AccessControl") {
         composable("AccessControl") {
             AccessControl(navController = navController)
+
         }
         composable("Home") {
             Home(navController = navController)

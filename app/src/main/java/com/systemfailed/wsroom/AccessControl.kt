@@ -1,8 +1,8 @@
 package com.systemfailed.wsroom
 
-import android.app.Activity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,7 +16,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -26,7 +25,11 @@ import com.systemfailed.wsroom.ui.viewmodel.ViewModelControl
 @Composable
 fun AccessControl(navController: NavController) {
     val vm: ViewModelControl = viewModel()
+
     val ui by vm._ui.collectAsState()
+    val user by vm._user.collectAsState()
+
+
 
     Column(
         Modifier
@@ -35,19 +38,27 @@ fun AccessControl(navController: NavController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Control de Acceso", fontSize = 30.sp)
+        Text(text = "Control de Access", fontSize = 30.sp)
 
-        TextField(modifier = Modifier.padding(5.dp), value = ui.code, onValueChange = {
+        TextField(modifier = Modifier.padding(5.dp), value = user.username, onValueChange = {
 
-            vm.changeCode(it)
+            vm.userData(it, user.password)
 
         }, label = {
-            Text("Ingrese su Codigo de Usuario")
+            Text("Ingrese su Username")
+        })
+        Spacer(modifier = Modifier.padding(5.dp))
+        TextField(modifier = Modifier.padding(5.dp), value = user.password, onValueChange = {
+
+            vm.userData(user.username, it)
+
+        }, label = {
+            Text("Ingrese su Password")
         })
 
         Button({
-            //vm.statusMessage(true)
-            navController.navigate("Start")
+            vm.login(navController)
+
 
         }) {
             Text(text = "Ingresar")
@@ -65,8 +76,6 @@ fun AccessControl(navController: NavController) {
 @Composable
 fun Message(ui: ViewModelControl) {
 
-    val act = LocalContext.current as Activity
-
     AlertDialog(
         onDismissRequest = { /*TODO*/ },
         confirmButton = {
@@ -77,7 +86,6 @@ fun Message(ui: ViewModelControl) {
         dismissButton = {
             TextButton({
                 ui.statusMessage(message = false)
-                //act.finish()
             }) {
                 Text("Salir")
             }

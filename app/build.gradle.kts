@@ -1,6 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
+    // plugin room
+    id("kotlin-kapt")
 }
 
 android {
@@ -71,4 +74,10 @@ dependencies {
 
     // navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
+
+    // viewmodel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+
+    // room
+    implementation("androidx.room:room-runtime:2.6.1")
 }
